@@ -4,15 +4,30 @@ const resultArea = document.getElementById('search-area');
 const warning = document.getElementById('warning-card');
 const detailsArea = document.getElementById('details-card');
 /* =============all declaration ends ============ */
-
+const giveError=()=>{
+    const h1 = document.createElement('h1');
+        h1.classList.add('text-center');
+        h1.classList.add('text-danger');
+        h1.innerText='Search using proper name :)';
+        warning.appendChild(h1);
+}
 /* =============load all phone data ============ */
  const loadPhone = async() =>{
     const searchText = document.getElementById('search-field').value;
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`; 
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log(data)
-    displayData(data.data);
+    if(searchText === ''){
+        warning.textContent= '';
+        giveError();
+    }
+    else{
+        resultArea.textContent= '';
+        warning.textContent= '';
+        detailsArea.textContent= '';
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`; 
+        const res = await fetch(url);
+        const data = await res.json();
+        console.log(data)
+        displayData(data.data);
+    }
  }
 
  /* ===========display all phone data ============*/
@@ -24,11 +39,7 @@ const detailsArea = document.getElementById('details-card');
      detailsArea.textContent= '';
      console.log(mobiles);
      if(mobiles.length ===0){
-        const h1 = document.createElement('h1');
-        h1.classList.add('text-center');
-        h1.classList.add('text-danger');
-        h1.innerText='No data Found :)';
-        warning.appendChild(h1);
+        giveError();
      }
      else{
         mobiles.forEach(mobile =>{
@@ -39,7 +50,7 @@ const detailsArea = document.getElementById('details-card');
                    <div class="card">
                        <img src="${mobile.image}" class="mx-auto  rounded p-2" width='224' height='297' alt="..." />
                        <div class="card-body text-center">
-                       <h5 class="card-title">Phone Name : ${mobile.phone_name} </h5>
+                       <h5 class="card-title">Name : ${mobile.phone_name} </h5>
                            <h5 class="card-title">Brand : ${mobile.brand} </h5>
                            <a href="#"  onclick="loadDetails('${mobile.slug}')" class="btn btn-primary">Details</a>
                        </div>
@@ -72,17 +83,17 @@ const displayDetails= details =>{
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                        <h5 class="card-title">Phone Name : ${details.name} </h5>
+                        <h5 class="card-title">Name: ${details.name} </h5>
                         <h5 class="card-title">Brand : ${details.brand} </h5>
                         <p class="card-text"><span class="fw-bold">Main Features:</span>
                         <span class="fw-bold">ChipSet:</span> ${details.mainFeatures.chipSet}.<span class="fw-bold">DisplaySize: </span>${details.mainFeatures.displaySize}.
                         <span class="fw-bold">Sensors :</span> ${details.mainFeatures.sensors}.</p>
                         <p class="card-text"><span class="fw-bold">Others:</span> Bluetooth-${details?.others?.Bluetooth}, Radio-${details?.others?.Radio}</p>
-                        <p class="card-text"><small class="text-muted">${details.releaseDate}</small></p>
+                        <p class="card-text"><small class="text-muted">${details.releaseDate ? details.releaseDate:'No Release Date found'}</small></p>
                         </div>
                     </div>
                 </div>
             </div>
     `;
     detailsArea.appendChild(div);
-}
+};

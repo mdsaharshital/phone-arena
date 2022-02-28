@@ -21,8 +21,8 @@
  const displayData =(allmobiles) =>{
      /* ===========display only 20 phone search data ============*/
      const mobiles = allmobiles.slice(0,20);
-     console.log(mobiles);
      const resultArea = document.getElementById('search-area');
+     resultArea.textContent= '';
      mobiles.forEach(mobile =>{
          console.log(mobile);
          const div = document.createElement('div');
@@ -51,6 +51,29 @@
 /* ================ Display Details================ */
 const displayDetails= details =>{
     console.log(details);
+    const detailsArea = document.getElementById('details-card');
+    const div = document.createElement('div');
+    detailsArea.textContent='';
+    div.innerHTML= `
+
+            <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="${details.image}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                        <h5 class="card-title">Phone Name : ${details.name} </h5>
+                        <h5 class="card-title">Brand : ${details.brand} </h5>
+                        <p class="card-text">Main Features:
+                        ChipSet: ${details.mainFeatures.chipSet}.DisplaySize ${details.mainFeatures.displaySize}.Memory ${details.mainFeatures.memory}.</p>
+                        <p class="card-text"><small class="text-muted">${details.releaseDate}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    `;
+    detailsArea.appendChild(div);
 }
 
  /* <div class="card" style="width: 18rem;">

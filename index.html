@@ -16,11 +16,29 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <header>
-      <section class="container">
-        <h1 class="text-center">
+    <header class="bg-dark">
+      <section class="container py-4">
+        <h1 class="text-center text-white">
           Phone<span class="text-danger"> Arena </span>
         </h1>
+        <div class="input-group my-3 w-75 mx-auto">
+          <input
+            id="search-field"
+            type="text"
+            class="form-control"
+            placeholder="Search Your SmartPhone"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+          />
+          <button
+            class="btn btn-outline-secondary text-white"
+            type="button"
+            id="search-btn"
+            onclick="loadPhone()"
+          >
+            Search
+          </button>
+        </div>
       </section>
     </header>
     <!-- bootstrap -->

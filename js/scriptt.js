@@ -1,4 +1,9 @@
 
+/* =============all declaration starts ============ */
+const resultArea = document.getElementById('search-area');
+const warning = document.getElementById('warning-card');
+const detailsArea = document.getElementById('details-card');
+/* =============all declaration ends ============ */
 
 /* =============load all phone data ============ */
  const loadPhone = async() =>{
@@ -6,6 +11,7 @@
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`; 
     const res = await fetch(url);
     const data = await res.json();
+    console.log(data)
     displayData(data.data);
  }
 
@@ -13,25 +19,36 @@
  const displayData =(allmobiles) =>{
      /* ===========display only 20 phone search data ============*/
      const mobiles = allmobiles.slice(0,20);
-     const resultArea = document.getElementById('search-area');
      resultArea.textContent= '';
-     mobiles.forEach(mobile =>{
-         console.log(mobile);
-         const div = document.createElement('div');
-         div.innerHTML= `
-            <div class="col">
-                <div class="card">
-                    <img src="${mobile.image}" class="mx-auto  rounded p-2" width='224' height='297' alt="..." />
-                    <div class="card-body text-center">
-                    <h5 class="card-title">Phone Name : ${mobile.phone_name} </h5>
-                        <h5 class="card-title">Brand : ${mobile.brand} </h5>
-                        <a href="#"  onclick="loadDetails('${mobile.slug}')" class="btn btn-primary">Details</a>
-                    </div>
-                </div>
-            </div>
-         `;
-         resultArea.appendChild(div);
-     })
+     warning.textContent= '';
+     detailsArea.textContent= '';
+     console.log(mobiles);
+     if(mobiles.length ===0){
+        const h1 = document.createElement('h1');
+        h1.classList.add('text-center');
+        h1.classList.add('text-danger');
+        h1.innerText='No data Found :)';
+        warning.appendChild(h1);
+     }
+     else{
+        mobiles.forEach(mobile =>{
+            console.log(mobile);
+            const div = document.createElement('div');
+            div.innerHTML= `
+               <div class="col">
+                   <div class="card">
+                       <img src="${mobile.image}" class="mx-auto  rounded p-2" width='224' height='297' alt="..." />
+                       <div class="card-body text-center">
+                       <h5 class="card-title">Phone Name : ${mobile.phone_name} </h5>
+                           <h5 class="card-title">Brand : ${mobile.brand} </h5>
+                           <a href="#"  onclick="loadDetails('${mobile.slug}')" class="btn btn-primary">Details</a>
+                       </div>
+                   </div>
+               </div>
+            `;
+            resultArea.appendChild(div);
+        })
+     }
  }
  /* ================ load Details================ */
  const loadDetails = async(id) =>{
@@ -43,8 +60,8 @@
 /* ================ Display Details================ */
 const displayDetails= details =>{
     console.log(details);
-    const detailsArea = document.getElementById('details-card');
     const div = document.createElement('div');
+    warning.textContent= '';
     detailsArea.textContent='';
     div.innerHTML= `
 

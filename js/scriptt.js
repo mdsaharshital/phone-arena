@@ -1,12 +1,4 @@
-// Phone Search
-// URL Format: 
 
-// Example: https://openapi.programming-hero.com/api/phones?search=iphone
-
-// Phone detail url:
-// URL Format: https://openapi.programming-hero.com/api/phone/${id}
-
-// Example: https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089
 
 /* =============load all phone data ============ */
  const loadPhone = async() =>{
@@ -65,8 +57,10 @@ const displayDetails= details =>{
                         <div class="card-body">
                         <h5 class="card-title">Phone Name : ${details.name} </h5>
                         <h5 class="card-title">Brand : ${details.brand} </h5>
-                        <p class="card-text">Main Features:
-                        ChipSet: ${details.mainFeatures.chipSet}.DisplaySize ${details.mainFeatures.displaySize}.Memory ${details.mainFeatures.memory}.</p>
+                        <p class="card-text"><span class="fw-bold">Main Features:</span>
+                        <span class="fw-bold">ChipSet:</span> ${details.mainFeatures.chipSet}.<span class="fw-bold">DisplaySize: </span>${details.mainFeatures.displaySize}.
+                        <span class="fw-bold">Sensors :</span> ${details.mainFeatures.sensors}.</p>
+                        <p class="card-text"><span class="fw-bold">Others:</span> Bluetooth-${details?.others?.Bluetooth}, Radio-${details?.others?.Radio}</p>
                         <p class="card-text"><small class="text-muted">${details.releaseDate}</small></p>
                         </div>
                     </div>
@@ -75,10 +69,3 @@ const displayDetails= details =>{
     `;
     detailsArea.appendChild(div);
 }
-
- /* <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div> */

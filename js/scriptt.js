@@ -49,7 +49,7 @@ const giveError=()=>{
                        <div class="card-body text-center">
                        <h5 class="card-title">Name: ${mobile.phone_name} </h5>
                            <h5 class="card-title">Brand : ${mobile.brand} </h5>
-                           <a href="#"  onclick="loadDetails('${mobile.slug}')" class="btn btn-primary">Details</a>
+                           <a href="#"  onclick="loadDetails('${mobile.slug}')" class="btn btn-dark">Details</a>
                        </div>
                    </div>
                </div>
@@ -85,7 +85,7 @@ const displayDetails= details =>{
                         <p ><span class="fw-bold">Main Features:</span>
                         <span class="fw-bold">ChipSet:</span> ${details.mainFeatures.chipSet}.<span class="fw-bold">DisplaySize: </span>${details.mainFeatures.displaySize}.</p>
                         <p><span class="fw-bold">Sensors :</span> ${details.mainFeatures.sensors}.</p>
-                        <p><span class="fw-bold">Others:</span> Bluetooth-${details?.others?.Bluetooth}, Radio-${details?.others?.Radio}</p>
+                        <p><span class="fw-bold">Others:</span> ${details.others?.Bluetooth ? details.others.Bluetooth:'no data found'}, ${details.others?.Radio ? details.others.Radio:''}</p>
                         </div>
                     </div>
                 </div>
